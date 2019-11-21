@@ -1,7 +1,7 @@
 package com.baxixiaomi.study.leetcode.test01;
 
 
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * 给定一个数组，需要在原地删除重复出现的元素，使得每个元素只出现一次，返回移除后数组的长度
@@ -13,20 +13,30 @@ import java.util.ArrayList;
 public class RemoveDuplicates {
 
     public static int removeDuplicates(int[] num) {
-        ArrayList<Integer> arrayList = new ArrayList<>(num.length);
-        for (int i = 0; i < num.length; i++) {
-            arrayList.add(num[i]);
-        }
-        for (int i = 0; i < arrayList.size() - 1; i++) {
-            if (arrayList.get(i) == arrayList.get(i + 1)) {
-                arrayList.remove(i);
+        ArrayList<Integer> arrayList = new ArrayList(num.length);
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = num.length; i > 0; i--) {
+            map.put(i, num[i]);
+            if (num[num.length - 1] == num[i]) {
+                arrayList.add(i);
             }
         }
-        return arrayList.size();
+        Set<Map.Entry<Integer, Integer>> entries = map.entrySet();
+        Iterator<Map.Entry<Integer, Integer>> iterator = entries.iterator();
+        for (int i = 0; i < arrayList.size(); i++) {
+            while (iterator.hasNext()) {
+                if (iterator.next().getKey() == arrayList.get(i)) {
+                    iterator.remove();
+                }
+            }
+
+        }
+        return map.size();
     }
 
     public static void main(String[] args) {
-        int[] num = {0,0,1,1,1,2,2,3,3,4};
-        System.out.println(removeDuplicates(num));;
+        int[] num = {0, 0, 1, 1, 1, 2, 2, 3, 3, 4};
+        System.out.println(removeDuplicates(num));
+
     }
 }
