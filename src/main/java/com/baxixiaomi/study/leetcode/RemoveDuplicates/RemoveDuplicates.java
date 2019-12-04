@@ -17,9 +17,11 @@ import java.util.*;
 public class RemoveDuplicates {
 
     public static void main(String[] args) {
-        int[] arr = {1, 1, 2, 2, 2, 3, 4, 5, 5, 6};
+        int[] arr = {0,0,1,1,1,2,2,3,3,4};
         //setImplementation(arr);
-        listImplementation(arr);
+        //listImplementation(arr);
+        arrayImplementation(arr);
+        //flagImplementation(arr);
     }
 
     /**
@@ -40,7 +42,7 @@ public class RemoveDuplicates {
      * @param arr 需要处理的数组
      */
     private static void listImplementation(int[] arr) {
-        ArrayList arrayList = new ArrayList();
+        ArrayList arrayList = new ArrayList(arr.length);
         for (int k = 0; k < arr.length; k++) {
             if (!arrayList.contains(arr[k])) {
                 arrayList.add(arr[k]);
@@ -50,6 +52,62 @@ public class RemoveDuplicates {
 
     }
 
+    /**
+     * 数组迭代实现原地删除
+     *
+     * @param arr 需要处理的数组
+     */
+    private static void arrayImplementation(int[] arr) {
+        int index = -1;
+        int i = 0;
+        loop:
+        while (i != arr.length) {
+            if (i == arr.length - 1) {
+                break;
+            }
+            for (int k = i + 1; k < arr.length; k++) {
+                if (arr[i] == arr[k]) {
+                    index = k;
+                    for (int j = index; j < arr.length; j++) {
+                        if (j != arr.length - 1) {
+                            arr[j] = arr[j + 1];
+                        } else {
+                            arr[j] = arr[j];
+                        }
+                    }
+                    arr = Arrays.copyOf(arr, arr.length - 1);
+
+                    i = 0;
+                    continue loop;
+                }
+                i++;
+            }
+        }
+        TraversalCollection.traversalArrays(arr);
+    }
+
+    private static void flagImplementation(int[] arr) {
+        int[] tempArr = new int[arr.length];
+        int index = 0;
+
+        for (int i = 0; i < arr.length; i++) {
+            boolean flag = false;
+            for (int j = i + 1; j < arr.length; j++) {
+                if (arr[i] == arr[j]) {
+                    flag = true;
+                    break;
+                }
+            }
+            if (!flag) {
+                tempArr[index] = arr[i];
+                index++;
+            }
+        }
+        int[] resultArr = new int[index];
+        System.arraycopy(tempArr, 0, resultArr, 0, index);
+
+        TraversalCollection.traversalArrays(resultArr);
+    }
 
     /**
      * 将数组转换为集合
