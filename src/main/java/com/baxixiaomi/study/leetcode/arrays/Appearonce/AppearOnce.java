@@ -18,4 +18,7 @@ package com.baxixiaomi.study.leetcode.arrays.Appearonce;
  * 输出: 4
  */
 public class AppearOnce {
+    public static void main(String[] args) {
+
+    }
 }
