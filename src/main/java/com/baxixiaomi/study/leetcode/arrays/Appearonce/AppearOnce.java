@@ -18,15 +18,15 @@ import java.util.*;
  * <p>
  * 输入: [4,1,2,1,2]
  * 输出: 4
- *
+ * <p>
  * 异或运算
- * 每个数和0进行异或，结果都是本身
- * 每个数和自身异或，结果都是0
- * 异或运算是支持交换律和结合律的
+ * 每个数和0进行异或，结果都是本身     a^0=a
+ * 每个数和自身异或，结果都是0         a^a=0
+ * 异或运算是支持交换律和结合律的      a^b^c=a^c^b
  */
 public class AppearOnce {
     public static void main(String[] args) {
-        int[] arr = new int[]{1,2,1,2,4};
+        int[] arr = new int[]{1, 2, 3, 4};
         singleNumber(arr);
         System.out.println(singleNumber(arr));
 
